@@ -1,0 +1,1029 @@
+#module load
+module use /apps/modulefiles/base
+module load sratoolkit/2.8.2
+module load star/2.5.3
+module load fastqc/0.11.8
+module load samtools/1.4.1
+module load htseq/0.11.1
+
+#download data from NCBI SRA
+bsub -q short "prefetch SRR3476400 SRR3476401 SRR3476402 SRR3476406 SRR3476407 SRR3476408 SRR3476403 SRR3476404 SRR3476405"
+
+bsub -q medium "prefetch SRR3476414 SRR3476415 SRR3476416 SRR3476417 SRR3476418 SRR3476419 SRR3476420 SRR3476421 SRR3476422 SRR3476423 SRR3476424 SRR3476425 SRR3476426 SRR3476427 SRR3476428"
+
+bsub -q medium "prefetch SRR10859243 SRR10859244 SRR10859245 SRR10859246 SRR10859247 SRR10859248 SRR10859232 SRR10859233 SRR10859234 SRR10859235 SRR10859236 SRR10859237"
+
+bsub -q medium "prefetch SRR11050931 SRR11050932 SRR11050933 SRR11050934 SRR11050935 SRR11050936 SRR11050943 SRR11050944 SRR11050945 SRR11050946 SRR11050947 SRR11050948"
+
+bsub -q medium "prefetch SRR11050925 SRR11050926 SRR11050927 SRR11050928 SRR11050929 SRR11050930 SRR11050937 SRR11050938 SRR11050939 SRR11050940 SRR11050941 SRR11050942"
+
+bsub -q medium "prefetch SRR7161649 SRR7161650 SRR7161651 SRR7161652 SRR7161653 SRR7161654 SRR7161655 SRR7161656"
+
+bsub -q medium "prefetch SRR7161697 SRR7161698 SRR7161699 SRR7161700 SRR7161701 SRR7161702 SRR7161703 SRR7161704"
+
+bsub -q medium "prefetch SRR7161745 SRR7161746 SRR7161747 SRR7161748 SRR7161749 SRR7161750 SRR7161751 SRR7161752"
+
+bsub -q medium "prefetch SRR7161793 SRR7161794 SRR7161795 SRR7161796 SRR7161797 SRR7161798 SRR7161799 SRR7161800"
+
+bsub -q medium "prefetch SRR7161657 SRR7161658 SRR7161659 SRR7161660 SRR7161661 SRR7161662 SRR7161663 SRR7161664"
+
+bsub -q medium "prefetch SRR7161705 SRR7161706 SRR7161707 SRR7161708 SRR7161709 SRR7161710 SRR7161711 SRR7161712"
+
+bsub -q medium "prefetch SRR7161753 SRR7161754 SRR7161755 SRR7161756 SRR7161757 SRR7161758 SRR7161759 SRR7161760"
+
+bsub -q medium "prefetch SRR7161801 SRR7161802 SRR7161803 SRR7161804 SRR7161805 SRR7161806 SRR7161807 SRR7161808"
+
+bsub -q medium "prefetch SRR7161665 SRR7161666 SRR7161667 SRR7161668 SRR7161669 SRR7161670 SRR7161671 SRR7161672 SRR7161713 SRR7161714 SRR7161715 SRR7161716 SRR7161717 SRR7161718 SRR7161719 SRR7161720"
+
+bsub -q medium "prefetch SRR7161761 SRR7161762 SRR7161763 SRR7161764 SRR7161765 SRR7161766 SRR7161767 SRR7161768 SRR7161809 SRR7161810 SRR7161811 SRR7161812 SRR7161813 SRR7161814 SRR7161815 SRR7161816"
+
+bsub -q medium "prefetch SRR7161673 SRR7161674 SRR7161675 SRR7161676 SRR7161677 SRR7161678 SRR7161679 SRR7161680 SRR7161721 SRR7161722 SRR7161723 SRR7161724 SRR7161725 SRR7161726 SRR7161727 SRR7161728 SRR7161769 SRR7161770 SRR7161771 SRR7161772 SRR7161773 SRR7161774 SRR7161775 SRR7161776 SRR7161817 SRR7161818 SRR7161819 SRR7161820 SRR7161821 SRR7161822 SRR7161823 SRR7161824"
+
+bsub -q medium "prefetch SRR7161681 SRR7161682 SRR7161683 SRR7161684 SRR7161685 SRR7161686 SRR7161687 SRR7161688 SRR7161729 SRR7161730 SRR7161731 SRR7161732 SRR7161733 SRR7161734 SRR7161735 SRR7161736"
+
+bsub -q medium "prefetch SRR7161777 SRR7161778 SRR7161779 SRR7161780 SRR7161781 SRR7161782 SRR7161783 SRR7161784 SRR7161825 SRR7161826 SRR7161827 SRR7161828 SRR7161829 SRR7161830 SRR7161831 SRR7161832"
+
+bsub -q medium "prefetch SRR7161689 SRR7161690 SRR7161691 SRR7161692 SRR7161693 SRR7161694 SRR7161695 SRR7161696 SRR7161737 SRR7161738 SRR7161739 SRR7161740 SRR7161741 SRR7161742 SRR7161743 SRR7161744"
+
+bsub -q medium "prefetch SRR7161785 SRR7161786 SRR7161787 SRR7161788 SRR7161789 SRR7161790 SRR7161791 SRR7161792 SRR7161833 SRR7161834 SRR7161835 SRR7161836 SRR7161837 SRR7161838 SRR7161839 SRR7161840"
+
+bsub -q medium "prefetch SRR7161841 SRR7161842 SRR7161843 SRR7161844 SRR7161845 SRR7161846 SRR7161847 SRR7161848"
+
+bsub -q medium "prefetch SRR7161889 SRR7161890 SRR7161891 SRR7161892 SRR7161893 SRR7161894 SRR7161895 SRR7161896"
+
+bsub -q medium "prefetch SRR7161937 SRR7161938 SRR7161939 SRR7161940 SRR7161941 SRR7161942 SRR7161943 SRR7161944"
+
+bsub -q medium "prefetch SRR7161985 SRR7161986 SRR7161987 SRR7161988 SRR7161989 SRR7161990 SRR7161991 SRR7161992"
+
+bsub -q medium "prefetch SRR7161849 SRR7161850 SRR7161851 SRR7161852 SRR7161853 SRR7161854 SRR7161855 SRR7161856"
+
+bsub -q medium "prefetch SRR7161897 SRR7161898 SRR7161899 SRR7161900 SRR7161901 SRR7161902 SRR7161903 SRR7161904"
+
+bsub -q medium "prefetch SRR7161945 SRR7161946 SRR7161947 SRR7161948 SRR7161949 SRR7161950 SRR7161951 SRR7161952"
+
+bsub -q medium "prefetch SRR7161993 SRR7161994 SRR7161995 SRR7161996 SRR7161997 SRR7161998 SRR7161999 SRR7162000"
+
+bsub -q medium "prefetch SRR7161857 SRR7161858 SRR7161859 SRR7161860 SRR7161861 SRR7161862 SRR7161863 SRR7161864"
+
+bsub -q medium "prefetch SRR7161905 SRR7161906 SRR7161907 SRR7161908 SRR7161909 SRR7161910 SRR7161911 SRR7161912"
+
+bsub -q medium "prefetch SRR7161953 SRR7161954 SRR7161955 SRR7161956 SRR7161957 SRR7161958 SRR7161959 SRR7161960"
+
+bsub -q medium "prefetch SRR7162001 SRR7162002 SRR7162003 SRR7162004 SRR7162005 SRR7162006 SRR7162007 SRR7162008"
+
+bsub -q medium "prefetch SRR7161865 SRR7161866 SRR7161867 SRR7161868 SRR7161869 SRR7161870 SRR7161871 SRR7161872"
+
+bsub -q medium "prefetch SRR7161913 SRR7161914 SRR7161915 SRR7161916 SRR7161917 SRR7161918 SRR7161919 SRR7161920"
+
+bsub -q medium "prefetch SRR7161961 SRR7161962 SRR7161963 SRR7161964 SRR7161965 SRR7161966 SRR7161967 SRR7161968"
+
+bsub -q medium "prefetch SRR7162009 SRR7162010 SRR7162011 SRR7162012 SRR7162013 SRR7162014 SRR7162015 SRR7162016"
+
+bsub -q medium "prefetch SRR7161873 SRR7161874 SRR7161875 SRR7161876 SRR7161877 SRR7161878 SRR7161879 SRR7161880"
+
+bsub -q medium "prefetch SRR7161921 SRR7161922 SRR7161923 SRR7161924 SRR7161925 SRR7161926 SRR7161927 SRR7161928"
+
+bsub -q medium "prefetch SRR7161969 SRR7161970 SRR7161971 SRR7161972 SRR7161973 SRR7161974 SRR7161975 SRR7161976"
+
+bsub -q medium "prefetch SRR7162017 SRR7162018 SRR7162019 SRR7162020 SRR7162021 SRR7162022 SRR7162023 SRR7162024"
+
+bsub -q medium "prefetch SRR7161881 SRR7161882 SRR7161883 SRR7161884 SRR7161885 SRR7161886 SRR7161887 SRR7161888"
+
+bsub -q medium "prefetch SRR7161929 SRR7161930 SRR7161931 SRR7161932 SRR7161933 SRR7161934 SRR7161935 SRR7161936"
+
+bsub -q medium "prefetch SRR7161977 SRR7161978 SRR7161979 SRR7161980 SRR7161981 SRR7161982 SRR7161983 SRR7161984"
+
+bsub -q medium "prefetch SRR7162025 SRR7162026 SRR7162027 SRR7162028 SRR7162029 SRR7162030 SRR7162031 SRR7162032"
+
+#extract fastq files from sra files
+
+bsub -q medium fastq-dump --split-files *.sra 
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/ConvR_ZT02_F1
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/ConvR_ZT02_F2
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/GF_ZT02_F1
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/GF_ZT02_F2
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/ConvR_ZT06_F1
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/ConvR_ZT06_F2
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/GF_ZT06_F1
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/GF_ZT06_F2
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/ConvR_ZT10_F1
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/ConvR_ZT10_F2
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/GF_ZT10_F1
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/GF_ZT10_F2
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/ConvR_ZT14_F1
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/ConvR_ZT14_F2
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/GF_ZT14_F1
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/GF_ZT14_F2
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/ConvR_ZT18_F1
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/ConvR_ZT18_F2
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/GF_ZT18_F1
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/GF_ZT18_F2
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/ConvR_ZT22_F1
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/ConvR_ZT22_F2
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/GF_ZT22_F1
+
+bsub -q medium fastq-dump --split-files *.sra --gzip --outdir ~/scratch/GF_ZT22_F2
+
+#concatenate files GSE114400_male
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT02.M1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT02.M1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT02.M2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT02.M2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT02.M1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT02.M1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT02.M2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT02.M2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT06.M1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT06.M1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT06.M2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT06.M2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT06.M1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT06.M1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT06.M2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT06.M2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT10.M1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT10.M1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT10.M2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT10.M2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT10.M1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT10.M1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT10.M2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT10.M2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT14.M1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT14.M1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT14.M2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT14.M2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT14.M1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT14.M1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT14.M2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT14.M2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT18.M1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT18.M1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT18.M2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT18.M2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT18.M1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT18.M1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT18.M2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT18.M2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT22.M1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT22.M1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT22.M2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT22.M2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT22.M1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT22.M1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT22.M2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT22.M2_2.fastq.gz" 
+
+#concatenate files GSE114400_female
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT02.F1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT02.F1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT02.F2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT02.F2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT02.F1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT02.F1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT02.F2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT02.F2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT06.F1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT06.F1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT06.F2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT06.F2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT06.F1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT06.F1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT06.F2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT06.F2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT10.F1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT10.F1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT10.F2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT10.F2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT10.F1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT10.F1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT10.F2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT10.F2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT14.F1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT14.F1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT14.F2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT14.F2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT14.F1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT14.F1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT14.F2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT14.F2_2.fastq.gz"
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT18.F1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT18.F1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT18.F2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT18.F2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT18.F1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT18.F1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT18.F2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT18.F2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT22.F1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT22.F1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > ConvR.ZT22.F2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > ConvR.ZT22.F2_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT22.F1_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT22.F1_2.fastq.gz" 
+
+bsub -q short "cat SRR*_1.fastq.gz > GF.ZT22.F2_1.fastq.gz" 
+
+bsub -q short "cat SRR*_2.fastq.gz > GF.ZT22.F2_2.fastq.gz" 
+
+#concatenate files GSE145012
+
+bsub -q short "cat SRR11050931_1.fastq.gz SRR11050932_1.fastq.gz > GF_F1.fastq.gz"
+
+bsub -q short "cat SRR11050933_1.fastq.gz SRR11050934_1.fastq.gz > GF_F2.fastq.gz"
+
+bsub -q short "cat SRR11050935_1.fastq.gz SRR11050936_1.fastq.gz > GF_F3.fastq.gz"
+
+bsub -q short "cat SRR11050943_1.fastq.gz SRR11050944_1.fastq.gz > ConvD_F1.fastq.gz"
+
+bsub -q short "cat SRR11050945_1.fastq.gz SRR11050946_1.fastq.gz > ConvD_F2.fastq.gz"
+
+bsub -q short "cat SRR11050947_1.fastq.gz SRR11050948_1.fastq.gz > ConvD_F3.fastq.gz"
+
+bsub -q short "cat SRR11050925_1.fastq.gz SRR11050926_1.fastq.gz > GF_M1.fastq.gz"
+
+bsub -q short "cat SRR11050927_1.fastq.gz SRR11050928_1.fastq.gz > GF_M2.fastq.gz"
+
+bsub -q short "cat SRR11050929_1.fastq.gz SRR11050930_1.fastq.gz > GF_M3.fastq.gz"
+
+bsub -q short "cat SRR11050937_1.fastq.gz SRR11050938_1.fastq.gz > ConvD_M1.fastq.gz"
+
+bsub -q short "cat SRR11050939_1.fastq.gz SRR11050940_1.fastq.gz > ConvD_M2.fastq.gz"
+
+bsub -q short "cat SRR11050941_1.fastq.gz SRR11050942_1.fastq.gz > ConvD_M3.fastq.gz"
+
+#fastqc check
+bsub -q short fastqc *.fastq
+
+#trimmomatic skipped
+
+bsub -q long trimmomatic PE -threads 4 -phred33  ConvR.ZT02.M1_1.fastq.gz  ConvR.ZT02.M1_2.fastq.gz  ConvR.ZT02.M1_1.paired.fastq.gz  ConvR.ZT02.M1_1.unpaired.fastq.gz ConvR.ZT02.M1_2.paried.fastq.gz ConvR.ZT02.M1_2.unpaired.fastq.gz ILLUMINACLIP:TruSeq3-PE-2.fa:2:30:10:2:keepBothReads LEADING:20 TRAILING:20 SLIDINGWINDOW:4:15 MINLEN:35
+
+#star alignment
+#GSE81115
+bsub -q big -R rusage[mem=16000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476400_1.fastq --outFileNamePrefix GF1.
+
+bsub -q big -R rusage[mem=16000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476401_1.fastq --outFileNamePrefix GF2.
+
+bsub -q big -R rusage[mem=16000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476402_1.fastq --outFileNamePrefix GF3.
+
+bsub -q big -R rusage[mem=16000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476403_1.fastq --outFileNamePrefix SCFA1.
+
+bsub -q big -R rusage[mem=16000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476404_1.fastq --outFileNamePrefix SCFA2.
+
+bsub -q big -R rusage[mem=16000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476405_1.fastq --outFileNamePrefix SCFA3.
+
+bsub -q big -R rusage[mem=16000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476406_1.fastq --outFileNamePrefix ConvD1.
+
+bsub -q big -R rusage[mem=16000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476407_1.fastq --outFileNamePrefix ConvD2.
+
+bsub -q big -R rusage[mem=16000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476408_1.fastq --outFileNamePrefix ConvD3.
+
+#GSE81117
+bsub -q big -R rusage[mem=48000] -v 48000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476414_1.fastq --outFileNamePrefix chow.GF1.
+
+bsub -q big -R rusage[mem=16000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476415_1.fastq --outFileNamePrefix chow.GF2.
+
+bsub -q big -R rusage[mem=16000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476416_1.fastq --outFileNamePrefix chow.GF3.
+
+bsub -q big -R rusage[mem=32000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476417_1.fastq --outFileNamePrefix chow.ConvR1.
+
+bsub -q big -R rusage[mem=32000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476418_1.fastq --outFileNamePrefix chow.ConvR2.
+
+bsub -q big -R rusage[mem=32000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476419_1.fastq --outFileNamePrefix chow.ConvR3.
+
+bsub -q big -R rusage[mem=32000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476420_1.fastq --outFileNamePrefix chow.ConvD1.
+
+bsub -q big -R rusage[mem=32000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476421_1.fastq --outFileNamePrefix chow.ConvD2.
+
+bsub -q big -R rusage[mem=32000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476422_1.fastq --outFileNamePrefix chow.ConvD3.
+
+bsub -q big -R rusage[mem=32000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476423_1.fastq --outFileNamePrefix ../scratch/HFHS.GF1.
+
+bsub -q big -R rusage[mem=40000] -v 40000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476424_1.fastq --outFileNamePrefix ../scratch/HFHS.GF2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476425_1.fastq --outFileNamePrefix ../scratch/HFHS.GF3.
+
+bsub -q big -R rusage[mem=32000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476426_1.fastq --outFileNamePrefix ../scratch/HFHS.ConvR1.
+
+bsub -q big -R rusage[mem=40000] -v 40000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476427_1.fastq --outFileNamePrefix ../scratch/HFHS.ConvR2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476428_1.fastq --outFileNamePrefix ../scratch/HFHS.ConvR3.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR3476428_1.fastq --outFileNamePrefix ../scratch/HFHS.ConvR3.
+
+#GSE143391
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR10859232_1.fastq SRR10859232_2.fastq --outFileNamePrefix ../scratch/CN1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR10859233_1.fastq SRR10859233_2.fastq --outFileNamePrefix ../scratch/CN2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR10859234_1.fastq SRR10859234_2.fastq --outFileNamePrefix ../scratch/CN3.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR10859235_1.fastq SRR10859235_2.fastq --outFileNamePrefix ../scratch/CN4.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR10859236_1.fastq SRR10859236_2.fastq --outFileNamePrefix ../scratch/CN5.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR10859237_1.fastq SRR10859237_2.fastq --outFileNamePrefix ../scratch/CN6.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR10859243_1.fastq SRR10859243_2.fastq --outFileNamePrefix ../scratch/GFN1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR10859244_1.fastq SRR10859244_2.fastq --outFileNamePrefix ../scratch/GFN2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR10859245_1.fastq SRR10859245_2.fastq --outFileNamePrefix ../scratch/GFN3.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR10859246_1.fastq SRR10859246_2.fastq --outFileNamePrefix ../scratch/GFN4.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR10859247_1.fastq SRR10859247_2.fastq --outFileNamePrefix ../scratch/GFN5.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn SRR10859248_1.fastq SRR10859248_2.fastq --outFileNamePrefix ../scratch/GFN6.
+
+#GSE145012_male
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF_M1.fastq.gz --readFilesCommand gunzip -c --outFileNamePrefix ../scratch/GF_M1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF_M2.fastq.gz --readFilesCommand gunzip -c --outFileNamePrefix ../scratch/GF_M2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF_M3.fastq.gz --readFilesCommand gunzip -c --outFileNamePrefix ../scratch/GF_M3.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvD_M1.fastq.gz --readFilesCommand gunzip -c --outFileNamePrefix ../scratch/ConvD_M1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvD_M2.fastq.gz --readFilesCommand gunzip -c --outFileNamePrefix ../scratch/ConvD_M2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvD_M3.fastq.gz --readFilesCommand gunzip -c --outFileNamePrefix ../scratch/ConvD_M3.
+
+
+#GSE145012_female
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF_F1.fastq.gz --readFilesCommand gunzip -c --outFileNamePrefix ../scratch/GF_F1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF_F2.fastq.gz --readFilesCommand gunzip -c --outFileNamePrefix ../scratch/GF_F2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF_F3.fastq.gz --readFilesCommand gunzip -c --outFileNamePrefix ../scratch/GF_F3.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvD_F1.fastq.gz --readFilesCommand gunzip -c --outFileNamePrefix ../scratch/ConvD_F1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvD_F2.fastq.gz --readFilesCommand gunzip -c --outFileNamePrefix ../scratch/ConvD_F2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvD_F3.fastq.gz --readFilesCommand gunzip -c --outFileNamePrefix ../scratch/ConvD_F3.
+
+#GSE114400_male
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT02.M1_1.fastq.gz ConvR.ZT02.M1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/ConvR.ZT02.M1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT02.M2_1.fastq.gz ConvR.ZT02.M2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/ConvR.ZT02.M2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT02.M1_1.fastq.gz GF.ZT02.M1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/GF.ZT02.M1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT02.M2_1.fastq.gz GF.ZT02.M2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/GF.ZT02.M2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT06.M1_1.fastq.gz ConvR.ZT06.M1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/ConvR.ZT06.M1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT06.M2_1.fastq.gz ConvR.ZT06.M2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/ConvR.ZT06.M2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT06.M1_1.fastq.gz GF.ZT06.M1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/GF.ZT06.M1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT06.M2_1.fastq.gz GF.ZT06.M2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/GF.ZT06.M2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT10.M1_1.fastq.gz ConvR.ZT10.M1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/ConvR.ZT10.M1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT10.M2_1.fastq.gz ConvR.ZT10.M2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/ConvR.ZT10.M2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT10.M1_1.fastq.gz GF.ZT10.M1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/GF.ZT10.M1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT10.M2_1.fastq.gz GF.ZT10.M2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/GF.ZT10.M2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT14.M1_1.fastq.gz ConvR.ZT14.M1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/ConvR.ZT14.M1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT14.M2_1.fastq.gz ConvR.ZT14.M2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/ConvR.ZT14.M2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT14.M1_1.fastq.gz GF.ZT14.M1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/GF.ZT14.M1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT14.M2_1.fastq.gz GF.ZT14.M2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/GF.ZT14.M2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT18.M1_1.fastq.gz ConvR.ZT18.M1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/ConvR.ZT18.M1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT18.M2_1.fastq.gz ConvR.ZT18.M2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/ConvR.ZT18.M2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT18.M1_1.fastq.gz GF.ZT18.M1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/GF.ZT18.M1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT18.M2_1.fastq.gz GF.ZT18.M2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/GF.ZT18.M2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT22.M1_1.fastq.gz ConvR.ZT22.M1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/ConvR.ZT22.M1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT22.M2_1.fastq.gz ConvR.ZT22.M2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/ConvR.ZT22.M2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT22.M1_1.fastq.gz GF.ZT22.M1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/GF.ZT22.M1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ../MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT22.M2_1.fastq.gz GF.ZT22.M2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ../scratch/GSE114400/GF.ZT22.M2.
+
+
+#GSE114400_female
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT02.F1_1.fastq.gz ConvR.ZT02.F1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/ConvR.ZT02.F1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT02.F2_1.fastq.gz ConvR.ZT02.F2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/ConvR.ZT02.F2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT02.F1_1.fastq.gz GF.ZT02.F1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/GF.ZT02.F1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT02.F2_1.fastq.gz GF.ZT02.F2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/GF.ZT02.F2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT06.F1_1.fastq.gz ConvR.ZT06.F1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/ConvR.ZT06.F1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT06.F2_1.fastq.gz ConvR.ZT06.F2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/ConvR.ZT06.F2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT06.F1_1.fastq.gz GF.ZT06.F1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/GF.ZT06.F1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT06.F2_1.fastq.gz GF.ZT06.F2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/GF.ZT06.F2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT10.F1_1.fastq.gz ConvR.ZT10.F1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/ConvR.ZT10.F1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT10.F2_1.fastq.gz ConvR.ZT10.F2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/ConvR.ZT10.F2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT10.F1_1.fastq.gz GF.ZT10.F1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/GF.ZT10.F1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT10.F2_1.fastq.gz GF.ZT10.F2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/GF.ZT10.F2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT14.F1_1.fastq.gz ConvR.ZT14.F1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/ConvR.ZT14.F1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT14.F2_1.fastq.gz ConvR.ZT14.F2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/ConvR.ZT14.F2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT14.F1_1.fastq.gz GF.ZT14.F1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/GF.ZT14.F1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT14.F2_1.fastq.gz GF.ZT14.F2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/GF.ZT14.F2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT18.F1_1.fastq.gz ConvR.ZT18.F1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/ConvR.ZT18.F1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT18.F2_1.fastq.gz ConvR.ZT18.F2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/ConvR.ZT18.F2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT18.F1_1.fastq.gz GF.ZT18.F1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/GF.ZT18.F1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT18.F2_1.fastq.gz GF.ZT18.F2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/GF.ZT18.F2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT22.F1_1.fastq.gz ConvR.ZT22.F1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/ConvR.ZT22.F1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn ConvR.ZT22.F2_1.fastq.gz ConvR.ZT22.F2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/ConvR.ZT22.F2.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT22.F1_1.fastq.gz GF.ZT22.F1_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/GF.ZT22.F1.
+
+bsub -q big -R rusage[mem=40000] -v 32000 -n 4 star --runThreadN 2 --genomeDir ~/MouseReferenceGenome/GRCm38.star/star/ --readFilesIn GF.ZT22.F2_1.fastq.gz GF.ZT22.F2_2.fastq.gz --readFilesCommand gunzip -c --outSAMtype BAM Unsorted --outFileNamePrefix ~/scratch/GSE114400_female/GF.ZT22.F2.
+
+
+#name sorted by samtools
+
+bsub -q short "samtools sort -n -o GF1.nsort.bam GF1.Aligned.out.sam"
+
+bsub -q short "samtools sort -n -o GF2.nsort.bam GF2.Aligned.out.sam"
+
+bsub -q short "samtools sort -n -o GF3.nsort.bam GF3.Aligned.out.sam"
+
+bsub -q short "samtools sort -n -o SCFA1.nsort.bam SCFA1.Aligned.out.sam"
+
+bsub -q short "samtools sort -n -o SCFA2.nsort.bam SCFA2.Aligned.out.sam"
+
+bsub -q short "samtools sort -n -o SCFA3.nsort.bam SCFA3.Aligned.out.sam"
+
+bsub -q short "samtools sort -n -o ConvD1.nsort.bam ConvD1.Aligned.out.sam"
+
+bsub -q short "samtools sort -n -o ConvD2.nsort.bam ConvD2.Aligned.out.sam"
+
+bsub -q short "samtools sort -n -o ConvD3.nsort.bam ConvD3.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o chow.GF1.nsort.bam chow.GF1.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o chow.GF2.nsort.bam chow.GF2.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o chow.GF3.nsort.bam chow.GF3.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/chow.ConvR1.nsort.bam chow.ConvR1.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/chow.ConvR2.nsort.bam chow.ConvR2.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/chow.ConvR3.nsort.bam chow.ConvR3.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/chow.ConvD1.nsort.bam chow.ConvD1.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/chow.ConvD2.nsort.bam chow.ConvD2.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/chow.ConvD3.nsort.bam chow.ConvD3.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/HFHS.GF1.nsort.bam ../scratch/HFHS.GF1.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/HFHS.GF2.nsort.bam ../scratch/HFHS.GF2.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/HFHS.GF3.nsort.bam ../scratch/HFHS.GF3.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/HFHS.ConvR1.nsort.bam ../scratch/HFHS.ConvR1.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/HFHS.ConvR2.nsort.bam ../scratch/HFHS.ConvR2.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/HFHS.ConvR3.nsort.bam ../scratch/HFHS.ConvR3.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/CN1.nsort.bam ../scratch/CN1.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/CN2.nsort.bam ../scratch/CN2.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/CN3.nsort.bam ../scratch/CN3.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/CN4.nsort.bam ../scratch/CN4.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/CN5.nsort.bam ../scratch/CN5.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/CN6.nsort.bam ../scratch/CN6.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GFN1.nsort.bam ../scratch/GFN1.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GFN2.nsort.bam ../scratch/GFN2.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GFN3.nsort.bam ../scratch/GFN3.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GFN4.nsort.bam ../scratch/GFN4.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GFN5.nsort.bam ../scratch/GFN5.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GFN6.nsort.bam ../scratch/GFN6.Aligned.out.sam"
+
+#GSE145012_male
+
+bsub -q medium "samtools sort -n -o ../scratch/GF_M1.nsort.bam ../scratch/GF_M1.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GF_M2.nsort.bam ../scratch/GF_M2.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GF_M3.nsort.bam ../scratch/GF_M3.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/ConvD_M1.nsort.bam ../scratch/ConvD_M1.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/ConvD_M2.nsort.bam ../scratch/ConvD_M2.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/ConvD_M3.nsort.bam ../scratch/ConvD_M3.Aligned.out.sam"
+
+
+#GSE145012_female
+
+bsub -q medium "samtools sort -n -o ../scratch/GF_F1.nsort.bam ../scratch/GF_F1.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GF_F2.nsort.bam ../scratch/GF_F2.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GF_F3.nsort.bam ../scratch/GF_F3.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/ConvD_F1.nsort.bam ../scratch/ConvD_F1.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/ConvD_F2.nsort.bam ../scratch/ConvD_F2.Aligned.out.sam"
+
+bsub -q medium "samtools sort -n -o ../scratch/ConvD_F3.nsort.bam ../scratch/ConvD_F3.Aligned.out.sam"
+
+
+#GSE114400_male_ZT02
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/ConvR.ZT02.M1.nsort.bam ../scratch/GSE114400/ConvR.ZT02.M1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/ConvR.ZT02.M2.nsort.bam ../scratch/GSE114400/ConvR.ZT02.M2.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/GF.ZT02.M1.nsort.bam ../scratch/GSE114400/GF.ZT02.M1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/GF.ZT02.M2.nsort.bam ../scratch/GSE114400/GF.ZT02.M2.Aligned.out.bam"
+
+#GSE114400_male_ZT06
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/ConvR.ZT06.M1.nsort.bam ../scratch/GSE114400/ConvR.ZT06.M1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/ConvR.ZT06.M2.nsort.bam ../scratch/GSE114400/ConvR.ZT06.M2.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/GF.ZT06.M1.nsort.bam ../scratch/GSE114400/GF.ZT06.M1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/GF.ZT06.M2.nsort.bam ../scratch/GSE114400/GF.ZT06.M2.Aligned.out.bam"
+
+#GSE114400_male_ZT10
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/ConvR.ZT10.M1.nsort.bam ../scratch/GSE114400/ConvR.ZT10.M1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/ConvR.ZT10.M2.nsort.bam ../scratch/GSE114400/ConvR.ZT10.M2.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/GF.ZT10.M1.nsort.bam ../scratch/GSE114400/GF.ZT10.M1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/GF.ZT10.M2.nsort.bam ../scratch/GSE114400/GF.ZT10.M2.Aligned.out.bam"
+
+
+#GSE114400_male_ZT14
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/ConvR.ZT14.M1.nsort.bam ../scratch/GSE114400/ConvR.ZT14.M1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/ConvR.ZT14.M2.nsort.bam ../scratch/GSE114400/ConvR.ZT14.M2.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/GF.ZT14.M1.nsort.bam ../scratch/GSE114400/GF.ZT14.M1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/GF.ZT14.M2.nsort.bam ../scratch/GSE114400/GF.ZT14.M2.Aligned.out.bam"
+
+
+#GSE114400_male_ZT18
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/ConvR.ZT18.M1.nsort.bam ../scratch/GSE114400/ConvR.ZT18.M1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/ConvR.ZT18.M2.nsort.bam ../scratch/GSE114400/ConvR.ZT18.M2.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/GF.ZT18.M1.nsort.bam ../scratch/GSE114400/GF.ZT18.M1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/GF.ZT18.M2.nsort.bam ../scratch/GSE114400/GF.ZT18.M2.Aligned.out.bam"
+
+
+#GSE114400_male_ZT22
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/ConvR.ZT22.M1.nsort.bam ../scratch/GSE114400/ConvR.ZT22.M1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/ConvR.ZT22.M2.nsort.bam ../scratch/GSE114400/ConvR.ZT22.M2.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/GF.ZT22.M1.nsort.bam ../scratch/GSE114400/GF.ZT22.M1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ../scratch/GSE114400/GF.ZT22.M2.nsort.bam ../scratch/GSE114400/GF.ZT22.M2.Aligned.out.bam"
+
+#GSE114400_female_ZT02
+
+bsub -q medium "samtools sort -n -o ConvR.ZT02.F1.nsort.bam ConvR.ZT02.F1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ConvR.ZT02.F2.nsort.bam ConvR.ZT02.F2.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o GF.ZT02.F1.nsort.bam GF.ZT02.F1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o GF.ZT02.F2.nsort.bam GF.ZT02.F2.Aligned.out.bam"
+
+#GSE114400_female_ZT06
+
+bsub -q medium "samtools sort -n -o ConvR.ZT06.F1.nsort.bam ConvR.ZT06.F1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ConvR.ZT06.F2.nsort.bam ConvR.ZT06.F2.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o GF.ZT06.F1.nsort.bam GF.ZT06.F1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o GF.ZT06.F2.nsort.bam GF.ZT06.F2.Aligned.out.bam"
+
+#GSE114400_female_ZT10
+
+bsub -q medium "samtools sort -n -o ConvR.ZT10.F1.nsort.bam ConvR.ZT10.F1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ConvR.ZT10.F2.nsort.bam ConvR.ZT10.F2.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o GF.ZT10.F1.nsort.bam GF.ZT10.F1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o GF.ZT10.F2.nsort.bam GF.ZT10.F2.Aligned.out.bam"
+
+#GSE114400_female_ZT14
+
+bsub -q medium "samtools sort -n -o ConvR.ZT14.F1.nsort.bam ConvR.ZT14.F1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ConvR.ZT14.F2.nsort.bam ConvR.ZT14.F2.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o GF.ZT14.F1.nsort.bam GF.ZT14.F1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o GF.ZT14.F2.nsort.bam GF.ZT14.F2.Aligned.out.bam"
+
+#GSE114400_female_ZT18
+
+bsub -q medium "samtools sort -n -o ConvR.ZT18.F1.nsort.bam ConvR.ZT18.F1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ConvR.ZT18.F2.nsort.bam ConvR.ZT18.F2.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o GF.ZT18.F1.nsort.bam GF.ZT18.F1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o GF.ZT18.F2.nsort.bam GF.ZT18.F2.Aligned.out.bam"
+
+#GSE114400_female_ZT22
+
+bsub -q medium "samtools sort -n -o ConvR.ZT22.F1.nsort.bam ConvR.ZT22.F1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o ConvR.ZT22.F2.nsort.bam ConvR.ZT22.F2.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o GF.ZT22.F1.nsort.bam GF.ZT22.F1.Aligned.out.bam"
+
+bsub -q medium "samtools sort -n -o GF.ZT22.F2.nsort.bam GF.ZT22.F2.Aligned.out.bam"
+
+#htseq count
+
+bsub -q medium "htseq-count -f bam --stranded=no GF1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no GF2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF2.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no GF3.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF3.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no SCFA1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > SCFA1.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no SCFA2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > SCFA2.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no SCFA3.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > SCFA3.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no ConvD1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvD1.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no ConvD2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvD2.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no ConvD3.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvD3.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no chow.GF1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > chow.GF1.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no chow.GF2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > chow.GF2.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no ../scratch/chow.ConvR1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > chow.ConvR1.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no ../scratch/chow.ConvR2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > chow.ConvR2.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no ../scratch/chow.ConvR3.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > chow.ConvR3.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no ../scratch/chow.ConvD1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > chow.ConvD1.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no ../scratch/chow.ConvD2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > chow.ConvD2.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no ../scratch/chow.ConvD3.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > chow.ConvD3.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no ../scratch/HFHS.GF1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > HFHS.GF1.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no ../scratch/HFHS.GF2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > HFHS.GF2.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no ../scratch/HFHS.GF3.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > HFHS.GF3.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no ../scratch/HFHS.ConvR1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > HFHS.ConvR1.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no ../scratch/HFHS.ConvR2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > HFHS.ConvR2.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no ../scratch/HFHS.ConvR3.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > HFHS.ConvR3.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/CN1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > CN1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/CN2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > CN2.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/CN3.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > CN3.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/CN4.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > CN4.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/CN5.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > CN5.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/CN6.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > CN6.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GFN1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GFN1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GFN2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GFN2.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GFN3.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GFN3.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GFN4.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GFN4.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GFN5.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GFN5.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GFN6.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GFN6.txt"
+
+#GSE145012_female
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GF_M1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF_M1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GF_M2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF_M2.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GF_M3.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF_M3.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/ConvD_M1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvD_M1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/ConvD_M2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvD_M2.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/ConvD_M3.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvD_M3.txt"
+
+
+#GSE145012_female
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GF_F1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF_F1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GF_F2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF_F2.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GF_F3.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF_F3.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/ConvD_F1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvD_F1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/ConvD_F2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvD_F2.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/ConvD_F3.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvD_F3.txt"
+
+
+#GSE114400 ZT02 male
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/ConvR.ZT02.M1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvR.ZT02.M1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/ConvR.ZT02.M2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvR.ZT02.M2.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/GF.ZT02.M1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF.ZT02.M1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/GF.ZT02.M2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF.ZT02.M2.txt"
+
+
+#GSE114400 ZT06 male
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/ConvR.ZT06.M1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvR.ZT06.M1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/ConvR.ZT06.M2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvR.ZT06.M2.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/GF.ZT06.M1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF.ZT06.M1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/GF.ZT06.M2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF.ZT06.M2.txt"
+
+#GSE114400 ZT10 male
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/ConvR.ZT10.M1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvR.ZT10.M1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/ConvR.ZT10.M2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvR.ZT10.M2.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/GF.ZT10.M1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF.ZT10.M1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/GF.ZT10.M2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF.ZT10.M2.txt"
+
+#GSE114400 ZT14 male
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/ConvR.ZT14.M1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvR.ZT14.M1.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no ../scratch/GSE114400/ConvR.ZT14.M2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvR.ZT14.M2.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/GF.ZT14.M1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF.ZT14.M1.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no ../scratch/GSE114400/GF.ZT14.M2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF.ZT14.M2.txt"
+
+#GSE114400 ZT18 male
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/ConvR.ZT18.M1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvR.ZT18.M1.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no ../scratch/GSE114400/ConvR.ZT18.M2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvR.ZT18.M2.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/GF.ZT18.M1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF.ZT18.M1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/GF.ZT18.M2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF.ZT18.M2.txt"
+
+#GSE114400 ZT22 male
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/ConvR.ZT22.M1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvR.ZT22.M1.txt"
+
+bsub -q long "htseq-count -f bam --stranded=no ../scratch/GSE114400/ConvR.ZT22.M2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > ConvR.ZT22.M2.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/GF.ZT22.M1.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF.ZT22.M1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ../scratch/GSE114400/GF.ZT22.M2.nsort.bam ../MouseReferenceGenome/GRCm38.gtf > GF.ZT22.M2.txt"
+
+#GSE114400 ZT02 female
+
+bsub -q medium "htseq-count -f bam --stranded=no ConvR.ZT02.F1.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > ConvR.ZT02.F1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ConvR.ZT02.F2.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > ConvR.ZT02.F2.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no GF.ZT02.F1.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > GF.ZT02.F1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no GF.ZT02.F2.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > GF.ZT02.F2.txt"
+
+#GSE114400 ZT06 female
+
+bsub -q medium "htseq-count -f bam --stranded=no ConvR.ZT06.F1.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > ConvR.ZT06.F1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ConvR.ZT06.F2.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > ConvR.ZT06.F2.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no GF.ZT06.F1.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > GF.ZT06.F1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no GF.ZT06.F2.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > GF.ZT06.F2.txt"
+
+#GSE114400 ZT10 female
+
+bsub -q medium "htseq-count -f bam --stranded=no ConvR.ZT10.F1.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > ConvR.ZT10.F1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ConvR.ZT10.F2.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > ConvR.ZT10.F2.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no GF.ZT10.F1.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > GF.ZT10.F1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no GF.ZT10.F2.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > GF.ZT10.F2.txt"
+
+#GSE114400 ZT14 female
+
+bsub -q medium "htseq-count -f bam --stranded=no ConvR.ZT14.F1.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > ConvR.ZT14.F1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ConvR.ZT14.F2.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > ConvR.ZT14.F2.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no GF.ZT14.F1.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > GF.ZT14.F1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no GF.ZT14.F2.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > GF.ZT14.F2.txt"
+
+#GSE114400 ZT18 female
+
+bsub -q medium "htseq-count -f bam --stranded=no ConvR.ZT18.F1.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > ConvR.ZT18.F1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ConvR.ZT18.F2.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > ConvR.ZT18.F2.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no GF.ZT18.F1.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > GF.ZT18.F1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no GF.ZT18.F2.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > GF.ZT18.F2.txt"
+
+#GSE114400 ZT22 female
+
+bsub -q medium "htseq-count -f bam --stranded=no ConvR.ZT22.F1.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > ConvR.ZT22.F1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no ConvR.ZT22.F2.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > ConvR.ZT22.F2.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no GF.ZT22.F1.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > GF.ZT22.F1.txt"
+
+bsub -q medium "htseq-count -f bam --stranded=no GF.ZT22.F2.nsort.bam ~/MouseReferenceGenome/GRCm38.gtf > GF.ZT22.F2.txt"
+
+
+
